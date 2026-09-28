@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>접근성 테스트 홈페이지</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #777;
+      background: #fff;
+    }
+
+    .header {
+      height: 70px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-right: 50px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav span {
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .hero {
+      background: #f5f5f5;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      color: #999;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #ddd;
+      color: #aaa;
+      padding: 15px 30px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 50px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .cards {
+      display: flex;
+      gap: 20px;
+    }
+
+    .card {
+      width: 33%;
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .form-area {
+      background: #fafafa;
+      padding: 40px;
+      margin-top: 50px;
+    }
+
+    input,
+    textarea,
+    select {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 20px;
+      box-sizing: border-box;
+    }
+
+    .submit {
+      background: #eee;
+      border: 0;
+      padding: 15px 30px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    .notice {
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .footer {
+      background: #222;
+      color: #555;
+      padding: 40px;
+      text-align: center;
+    }
+
+    a {
+      color: #aaa;
+    }
+
+    .fake-button {
+      background: #eee;
+      padding: 15px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    :focus {
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 의미 있는 랜드마크 대신 div 사용 -->
+  <div class="header">
+
+    <!-- alt 누락 -->
+    <img src="https://via.placeholder.com/120x40" width="120" height="40">
+
+    <div class="logo">My Website</div>
+
+    <!-- 실제 navigation 요소가 아님 -->
+    <div class="nav">
+      <span onclick="location.href='#home'">홈</span>
+      <span onclick="location.href='#about'">소개</span>
+      <span onclick="location.href='#services'">서비스</span>
+      <span onclick="location.href='#contact'">연락처</span>
+    </div>
+  </div>
+
+
+  <div class="hero" id="home">
+
+    <!-- heading 레벨 구조 테스트 -->
+    <h1>더 나은 웹 경험</h1>
+
+    <p>
+      누구나 사용할 수 있는 서비스를 만들고 있습니다.
+    </p>
+
+    <!-- 버튼처럼 보이지만 button이 아님 -->
+    <div class="button" onclick="alert('시작합니다')">
+      시작하기
+    </div>
+
+    <!-- 빈 링크 -->
+    <a href="#"></a>
+
+  </div>
+
+
+  <div class="content">
+
+    <!-- h1 다음에 h3 사용 -->
+    <h3>주요 서비스</h3>
+
+    <p>
+      우리의 서비스를 확인해보세요.
+    </p>
+
+    <div class="cards">
+
+      <div class="card">
+
+        <!-- alt 없음 -->
+        <img src="https://picsum.photos/400/200?random=1">
+
+        <h2>서비스 A</h2>
+
+        <p>
+          다양한 기능을 제공합니다.
+        </p>
+
+        <!-- 링크 목적이 불분명 -->
+        <a href="https://example.com">여기</a>
+
+      </div>
+
+
+      <div class="card">
+
+        <!-- 잘못된 alt -->
+        <img
+          src="https://picsum.photos/400/200?random=2"
+          alt="image"
+        >
+
+        <h2>서비스 B</h2>
+
+        <p>
+          편리하고 빠르게 사용할 수 있습니다.
+        </p>
+
+        <!-- 의미 없는 링크 텍스트 -->
+        <a href="https://example.com">더보기</a>
+
+      </div>
+
+
+      <div class="card">
+
+        <!-- 장식 이미지인데 alt가 이상함 -->
+        <img
+          src="https://picsum.photos/400/200?random=3"
+          alt="사진"
+        >
+
+        <h2>서비스 C</h2>
+
+        <p>
+          새로운 경험을 제공합니다.
+        </p>
+
+        <!-- 키보드 접근이 어려운 요소 -->
+        <span
+          class="fake-button"
+          onclick="alert('확인')"
+        >
+          확인
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="form-area" id="contact">
+
+      <h2>문의하기</h2>
+
+      <form>
+
+        <!-- label 없음 -->
+        <input
+          type="text"
+          placeholder="이름"
+        >
+
+        <!-- label 없음 -->
+        <input
+          type="email"
+          placeholder="이메일"
+        >
+
+        <!-- label 없음 -->
+        <select>
+          <option>문의 유형을 선택하세요</option>
+          <option>일반 문의</option>
+          <option>서비스 문의</option>
+          <option>기타</option>
+        </select>
+
+        <!-- label 없음 -->
+        <textarea
+          rows="5"
+          placeholder="문의 내용을 입력하세요"
+        ></textarea>
+
+        <!-- 버튼 이름은 있지만 오류 안내 없음 -->
+        <button
+          type="submit"
+          class="submit"
+        >
+          보내기
+        </button>
+
+        <p class="notice">
+          개인정보를 입력해 주세요.
+        </p>
+
+      </form>
+
+    </div>
+
+
+    <section>
+
+      <h2>공지사항</h2>
+
+      <!-- 리스트가 아닌 div로 리스트 구현 -->
+      <div>
+        <div>서비스 점검 안내</div>
+        <div>새로운 기능이 추가되었습니다.</div>
+        <div>이벤트가 시작되었습니다.</div>
+      </div>
+
+    </section>
+
+
+    <section>
+
+      <h2>정보 테이블</h2>
+
+      <!-- 접근성 고려가 부족한 테이블 -->
+      <table border="1">
+        <tr>
+          <td>서비스</td>
+          <td>상태</td>
+          <td>사용자</td>
+        </tr>
+        <tr>
+          <td>서비스 A</td>
+          <td>정상</td>
+          <td>1200</td>
+        </tr>
+        <tr>
+          <td>서비스 B</td>
+          <td>점검</td>
+          <td>850</td>
+        </tr>
+      </table>
+
+    </section>
+
+
+    <section>
+
+      <h2>동영상</h2>
+
+      <!-- 자동 재생 -->
+      <video
+        width="500"
+        autoplay
+        loop
+      >
+        <source
+          src="https://www.w3schools.com/html/mov_bbb.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+    </section>
+
+
+    <section>
+
+      <h2>외부 콘텐츠</h2>
+
+      <!-- title 없는 iframe -->
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+      ></iframe>
+
+    </section>
+
+
+    <section>
+
+      <h2>잘못된 ARIA 사용 예</h2>
+
+      <!-- 잘못된 role과 aria 사용 -->
+      <div
+        role="button"
+        aria-label=""
+        onclick="alert('클릭')"
+      >
+        클릭하세요
+      </div>
+
+      <br><br>
+
+      <!-- 존재하지 않는 id를 aria-labelledby에서 참조 -->
+      <div aria-labelledby="does-not-exist">
+        설명 영역입니다.
+      </div>
+
+    </section>
+
+
+    <section>
+
+      <h2>중복 ID 테스트</h2>
+
+      <!-- 동일한 id를 여러 요소에 사용 -->
+      <input id="username" type="text">
+      <input id="username" type="text">
+
+    </section>
+
+
+    <section>
+
+      <h2>키보드 테스트</h2>
+
+      <!-- tabindex가 없어 키보드로 접근하기 어려움 -->
+      <div
+        onclick="alert('클릭됨')"
+        style="background:#ddd; padding:20px; cursor:pointer;"
+      >
+        마우스로 클릭해보세요
+      </div>
+
+      <br>
+
+      <!-- 양수 tabindex -->
+      <button tabindex="3">세 번째</button>
+      <button tabindex="1">첫 번째</button>
+      <button tabindex="2">두 번째</button>
+
+    </section>
+
+  </div>
+
+
+  <!-- footer landmark 없음 -->
+  <div class="footer">
+
+    <p>© 2026 My Website</p>
+
+    <!-- 대비가 낮은 링크 -->
+    <a href="#">개인정보처리방침</a>
+
+    <br><br>
+
+    <!-- 빈 버튼 -->
+    <button></button>
+
+  </div>
+
+
+  <script>
+
+    // 페이지 로드 시 자동 alert
+    setTimeout(function () {
+      console.log("페이지가 로드되었습니다.");
+    }, 1000);
+
+  </script>
+
+</body>
+</html>
