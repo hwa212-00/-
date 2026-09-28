@@ -1,0 +1,35 @@
+name: Accessibility Audit (aXe-core)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  accessibility-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 필요 도구 설치 (axe-cli, http-server)
+        run: npm install -g axe-cli axe-core http-server
+
+      - name: Chrome 브라우저 설치
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
+      - name: HTTP 서버 시작 및 aXe 접근성 검사
+        run: |
+          http-server -p 8080 &
+          SERVER_PID=$!
+          sleep 2
+          axe http://localhost:8080/index.html --exit || TEST_RESULT=$?
+          kill $SERVER_PID
+          exit ${TEST_RESULT:-0}
