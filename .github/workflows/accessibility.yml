@@ -19,17 +19,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 필요 도구 설치 (axe-cli, http-server)
+      - name: 필요 패키지 설치
         run: npm install -g axe-cli http-server
 
-      - name: Chrome 및 ChromeDriver 최신 환경 구성
-        run: npx puppeteer browsers install chrome
+      - name: Chrome 브라우저 설치
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
 
       - name: HTTP 서버 시작 및 aXe 접근성 검사
         run: |
           http-server -p 8080 &
           SERVER_PID=$!
           sleep 2
-          axe http://localhost:8080/index.html --exit || TEST_RESULT=$?
+          axe http://localhost:8080/index.html --chrome-path /usr/bin/google-chrome --exit || TEST_RESULT=$?
           kill $SERVER_PID
           exit ${TEST_RESULT:-0}
