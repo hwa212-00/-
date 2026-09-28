@@ -20,10 +20,10 @@ jobs:
           node-version: '20'
 
       - name: 필요 도구 설치 (axe-cli, http-server)
-        run: npm install -g axe-cli axe-core http-server
+        run: npm install -g axe-cli http-server
 
-      - name: Chrome 브라우저 설치
-        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+      - name: Chrome 및 ChromeDriver 최신 환경 구성
+        run: npx puppeteer browsers install chrome
 
       - name: HTTP 서버 시작 및 aXe 접근성 검사
         run: |
